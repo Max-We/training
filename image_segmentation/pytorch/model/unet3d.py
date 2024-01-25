@@ -37,18 +37,14 @@ class Unet3D(nn.Module):
                 v.data *= float(weights_init_scale)
 
     def forward(self, x):
-        print("Input shape", x.shape)
         x = self.input_block(x)
         outputs = [x]
 
         for downsample in self.downsample:
             x = downsample(x)
             outputs.append(x)
-            print("Downsample", x.shape)
 
-        print("Before bottleneck", x.shape)
         x = self.bottleneck(x)
-        print("After bottleneck", x.shape)
 
         for upsample, skip in zip(self.upsample, reversed(outputs)):
             x = upsample(x, skip)
