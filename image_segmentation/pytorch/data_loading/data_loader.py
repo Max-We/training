@@ -83,7 +83,7 @@ def get_data_loaders(flags, num_shards, global_rank):
 
     elif flags.loader == "pytorch":
         x_train, x_val, y_train, y_val = get_data_split(flags.data_dir, num_shards, shard_id=global_rank)
-        print(x_train.shape)
+        print(x_train[0].shape)
         train_data_kwargs = {"patch_size": flags.input_shape, "oversampling": flags.oversampling, "seed": flags.seed}
         train_dataset = PytTrain(x_train, y_train, **train_data_kwargs)
         val_dataset = PytVal(x_val, y_val)
