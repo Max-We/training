@@ -44,7 +44,9 @@ class Unet3D(nn.Module):
             x = downsample(x)
             outputs.append(x)
 
+        print("Before bottleneck", x.shape)
         x = self.bottleneck(x)
+        print("After bottleneck", x.shape)
 
         for upsample, skip in zip(self.upsample, reversed(outputs)):
             x = upsample(x, skip)
