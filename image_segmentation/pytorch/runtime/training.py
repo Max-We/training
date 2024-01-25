@@ -95,6 +95,7 @@ def train(flags, model, train_loader, val_loader, loss_fn, score_fn, device, cal
                 optimizer.zero_grad()
 
             loss_value = reduce_tensor(loss_value, world_size).detach().cpu().numpy()
+            print("Loss", loss_value)
             cumulative_loss.append(loss_value)
 
         mllog_end(key=CONSTANTS.EPOCH_STOP, sync=False,
